@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini-React Demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .app {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+    
+    nav {
+      background: #f8f9fa;
+      padding: 20px;
+      border-bottom: 1px solid #e9ecef;
+      display: flex;
+      gap: 10px;
+    }
+    
+    nav button {
+      padding: 10px 20px;
+      border: 2px solid #007bff;
+      background: white;
+      color: #007bff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    nav button:hover {
+      background: #007bff;
+      color: white;
+    }
+    
+    nav button.active {
+      background: #007bff;
+      color: white;
+    }
+    
+    main {
+      padding: 30px;
+    }
+    
+    .counter {
+      text-align: center;
+    }
+    
+    .counter h1 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 2.5em;
+    }
+    
+    .count-display {
+      margin: 30px 0;
+    }
+    
+    .count-display h2 {
+      font-size: 3em;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+    
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .buttons button {
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+      min-width: 80px;
+    }
+    
+    .buttons button:nth-child(1) {
+      background: #dc3545;
+      color: white;
+    }
+    
+    .buttons button:nth-child(1):hover {
+      background: #c82333;
+    }
+    
+    .buttons button:nth-child(2) {
+      background: #6c757d;
+      color: white;
+    }
+    
+    .buttons button:nth-child(2):hover {
+      background: #5a6268;
+    }
+    
+    .buttons button:nth-child(3) {
+      background: #28a745;
+      color: white;
+    }
+    
+    .buttons button:nth-child(3):hover {
+      background: #218838;
+    }
+    
+    .buttons button:nth-child(4) {
+      background: #17a2b8;
+      color: white;
+    }
+    
+    .buttons button:nth-child(4):hover {
+      background: #138496;
+    }
+    
+    .todo-app h2 {
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .todo-input {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .todo-input input {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #e9ecef;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    
+    .todo-input input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+    
+    .todo-input button {
+      padding: 12px 24px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    
+    .todo-input button:hover {
+      background: #0056b3;
+    }
+    
+    .todo-list {
+      list-style: none;
+    }
+    
+    .todo-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px;
+      margin-bottom: 10px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      border-left: 4px solid #007bff;
+    }
+    
+    .todo-list li.completed {
+      opacity: 0.6;
+      border-left-color: #28a745;
+    }
+    
+    .todo-list li span {
+      flex: 1;
+      cursor: pointer;
+    }
+    
+    .todo-list li button {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    
+    .todo-list li button:hover {
+      background: #c82333;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 50px;
+      color: #666;
+    }
+    
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 15px;
+      border-radius: 6px;
+      margin: 20px 0;
+      border: 1px solid #f5c6cb;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <div class="loading">Loading Mini-React...</div>
+  </div>
+  
+  <script type="module">
+    // 导入Mini-React
+    import { createElement, render } from './src/index.js';
+    import { App } from './examples/counter.js';
+    
+    // 渲染应用
+    try {
+      const root = document.getElementById('root');
+      render(createElement(App), root);
+      console.log('Mini-React app rendered successfully!');
+    } catch (error) {
+      console.error('Error rendering Mini-React app:', error);
+      document.getElementById('root').innerHTML = `
+        <div class="error">
+          <h3>渲染错误</h3>
+          <p>无法渲染Mini-React应用: ${error.message}</p>
+          <p>请检查浏览器控制台获取更多信息。</p>
+        </div>
+      `;
+    }
+    
+    // 调试信息
+    console.log('Mini-React loaded');
+    console.log('Available in window.MiniReact');
+  </script>
+</body>
+</html>
