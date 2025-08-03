@@ -1,0 +1,356 @@
+/* 主样式文件 */
+
+/* 重置样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+/* 应用容器 */
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+}
+
+/* 标题样式 */
+.app-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.app-description {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* 功能列表 */
+.feature-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.feature-item {
+  padding: 1rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 10px;
+  font-weight: 500;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 4px solid #667eea;
+}
+
+.feature-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 组件样式 */
+.component {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1e5e9;
+  transition: box-shadow 0.3s ease;
+}
+
+.component:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.component-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.state-display {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #28a745;
+}
+
+.state-display p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.state-display strong {
+  color: #495057;
+}
+
+/* 控制按钮 */
+.component-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.control-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 100px;
+}
+
+.control-button.increment {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+}
+
+.control-button.increment:hover {
+  background: linear-gradient(135deg, #218838, #1ea080);
+  transform: translateY(-1px);
+}
+
+.control-button.decrement {
+  background: linear-gradient(135deg, #dc3545, #e83e8c);
+  color: white;
+}
+
+.control-button.decrement:hover {
+  background: linear-gradient(135deg, #c82333, #d91a72);
+  transform: translateY(-1px);
+}
+
+.control-button.reset {
+  background: linear-gradient(135deg, #6c757d, #adb5bd);
+  color: white;
+}
+
+.control-button.reset:hover {
+  background: linear-gradient(135deg, #5a6268, #95a5a6);
+  transform: translateY(-1px);
+}
+
+.control-button.toggle {
+  background: linear-gradient(135deg, #007bff, #6610f2);
+  color: white;
+}
+
+.control-button.toggle:hover {
+  background: linear-gradient(135deg, #0056b3, #520dc2);
+  transform: translateY(-1px);
+}
+
+/* 事件相关 */
+.event-button {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #ff6b6b, #feca57);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 1rem 0;
+  display: block;
+  width: 100%;
+}
+
+.event-button:hover {
+  background: linear-gradient(135deg, #ee5a52, #ff9ff3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+}
+
+.event-message {
+  background: linear-gradient(135deg, #74b9ff, #0984e3);
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 0.5rem 0;
+  animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 计数器 */
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  margin: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.count-display {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2c3e50;
+  flex: 1;
+}
+
+.increment-button,
+.decrement-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;
+}
+
+.increment-button {
+  background: linear-gradient(135deg, #00b894, #00cec9);
+  color: white;
+}
+
+.increment-button:hover {
+  background: linear-gradient(135deg, #00a085, #00b7c2);
+  transform: scale(1.05);
+}
+
+.decrement-button {
+  background: linear-gradient(135deg, #e17055, #fdcb6e);
+  color: white;
+}
+
+.decrement-button:hover {
+  background: linear-gradient(135deg, #d63031, #f39c12);
+  transform: scale(1.05);
+}
+
+/* 时间显示 */
+.time-display {
+  background: linear-gradient(135deg, #2d3436, #636e72);
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 1rem 0;
+  font-family: 'Courier New', monospace;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .app {
+    margin: 10px;
+    padding: 15px;
+  }
+  
+  .app-title {
+    font-size: 2rem;
+  }
+  
+  .feature-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .component-controls {
+    flex-direction: column;
+  }
+  
+  .control-button {
+    min-width: auto;
+  }
+  
+  .counter {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-title {
+    font-size: 1.5rem;
+  }
+  
+  .app-description {
+    font-size: 1rem;
+  }
+  
+  .component {
+    padding: 1rem;
+  }
+}
+
+/* 加载动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.app {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a6fd8, #6a4190);
+}

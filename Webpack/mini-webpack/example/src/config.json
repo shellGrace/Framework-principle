@@ -1,0 +1,60 @@
+{
+  "appName": "Mini Webpack 示例应用",
+  "version": "1.0.0",
+  "description": "这是一个使用 Mini Webpack 构建的示例应用",
+  "author": "Mini Webpack Team",
+  "features": {
+    "hotReload": true,
+    "codeSplitting": true,
+    "cssProcessing": true,
+    "babelTransform": true,
+    "devServer": true,
+    "plugins": true
+  },
+  "api": {
+    "baseUrl": "http://localhost:3000",
+    "timeout": 5000,
+    "retries": 3
+  },
+  "ui": {
+    "theme": "default",
+    "primaryColor": "#667eea",
+    "secondaryColor": "#764ba2",
+    "animations": true,
+    "transitions": true
+  },
+  "performance": {
+    "enableLazyLoading": true,
+    "enableCaching": true,
+    "bundleAnalysis": false,
+    "sourceMap": true
+  },
+  "development": {
+    "enableLogging": true,
+    "logLevel": "info",
+    "enableDebugMode": true,
+    "showPerformanceMetrics": true
+  },
+  "build": {
+    "outputPath": "dist",
+    "publicPath": "/",
+    "generateSourceMaps": true,
+    "minify": false,
+    "extractCSS": false
+  },
+  "modules": {
+    "allowedExtensions": [".js", ".json", ".css"],
+    "resolveModules": ["node_modules", "src"],
+    "aliases": {
+      "@": "./src",
+      "utils": "./src/utils",
+      "components": "./src/components",
+      "styles": "./src/styles"
+    }
+  },
+  "experimental": {
+    "enableWebWorkers": false,
+    "enableServiceWorker": false,
+    "enablePWA": false
+  }
+}

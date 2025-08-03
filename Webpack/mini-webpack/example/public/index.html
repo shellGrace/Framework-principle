@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mini Webpack 示例应用</title>
+    <meta name="description" content="使用 Mini Webpack 构建的示例应用，展示模块打包、热更新、代码分割等功能">
+    <meta name="keywords" content="webpack, mini-webpack, 模块打包, 前端构建">
+    <meta name="author" content="Mini Webpack Team">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📦%3C/text%3E%3C/svg%3E">
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- 样式预加载 -->
+    <style>
+        /* 加载动画 */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+            font-weight: 500;
+        }
+        
+        /* 错误页面样式 */
+        .error-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f8f9fa;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            z-index: 9998;
+        }
+        
+        .error-content {
+            text-align: center;
+            max-width: 500px;
+            padding: 2rem;
+        }
+        
+        .error-title {
+            font-size: 2rem;
+            color: #dc3545;
+            margin-bottom: 1rem;
+        }
+        
+        .error-message {
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .retry-button {
+            padding: 0.75rem 1.5rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .retry-button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- 加载动画 -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">正在加载应用...</div>
+    </div>
+    
+    <!-- 错误页面 -->
+    <div id="error-page" class="error-page">
+        <div class="error-content">
+            <div class="error-title">⚠️ 加载失败</div>
+            <div class="error-message">应用加载过程中出现错误，请检查网络连接或刷新页面重试。</div>
+            <button class="retry-button" onclick="location.reload()">重新加载</button>
+        </div>
+    </div>
+    
+    <!-- 应用根容器 -->
+    <div id="app"></div>
+    
+    <!-- 开发环境提示 -->
+    <script>
+        // 检测开发环境
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+            console.log('%c🚀 Mini Webpack 开发模式', 'color: #667eea; font-size: 16px; font-weight: bold;');
+            console.log('%c📦 模块热更新已启用', 'color: #28a745; font-size: 14px;');
+        }
+        
+        // 全局错误处理
+        window.addEventListener('error', function(event) {
+            console.error('应用错误:', event.error);
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error-page').style.display = 'flex';
+        });
+        
+        // 未处理的 Promise 错误
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('未处理的 Promise 错误:', event.reason);
+            event.preventDefault();
+        });
+        
+        // 性能监控
+        window.addEventListener('load', function() {
+            if (window.performance && window.performance.timing) {
+                const timing = window.performance.timing;
+                const loadTime = timing.loadEventEnd - timing.navigationStart;
+                console.log(`%c⚡ 页面加载时间: ${loadTime}ms`, 'color: #ffc107; font-size: 12px;');
+            }
+        });
+        
+        // 隐藏加载动画
+        function hideLoading() {
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.classList.add('hidden');
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 500);
+            }
+        }
+        
+        // 应用加载完成后隐藏加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            // 延迟隐藏，确保应用已渲染
+            setTimeout(hideLoading, 1000);
+        });
+        
+        // 如果应用在 3 秒内没有加载完成，显示错误页面
+        setTimeout(function() {
+            const app = document.getElementById('app');
+            if (!app || !app.children.length) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error-page').style.display = 'flex';
+            }
+        }, 3000);
+    </script>
+    
+    <!-- 这里会被 Mini Webpack 注入构建后的脚本 -->
+</body>
+</html>
